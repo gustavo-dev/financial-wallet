@@ -1,0 +1,94 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #ff4444;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutButton:hover {
+  background-color: #cc0000;
+}
+
+.balance {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.amount {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0070f3;
+}
+
+.actions {
+  margin-bottom: 2rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.buttons button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.depositButton {
+  background-color: #0070f3;
+  color: white;
+}
+
+.depositButton:hover {
+  background-color: #0051a8;
+}
+
+.transferButton {
+  background-color: #fff;
+  color: #0070f3;
+  border: 1px solid #0070f3 !important;
+}
+
+.transferButton:hover {
+  background-color: #f8f9fa;
+}
+
+.history {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+} 
