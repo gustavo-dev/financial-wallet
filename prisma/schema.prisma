@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  balance   Float    @default(0.0)
+  transactionsSent Transaction[] @relation("SentTransactions")
+  transactionsReceived Transaction[] @relation("ReceivedTransactions")
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  type        String   // "deposit", "transfer", "reversal"
+  senderId    Int?
+  receiverId  Int?
+  sender      User?    @relation("SentTransactions", fields: [senderId], references: [id])
+  receiver    User?    @relation("ReceivedTransactions", fields: [receiverId], references: [id])
+  createdAt   DateTime @default(now())
+  reversed    Boolean  @default(false)
+}
