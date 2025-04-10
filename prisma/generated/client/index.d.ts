@@ -960,13 +960,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    transactionsSent: number
-    transactionsReceived: number
+    sentTransactions: number
+    receivedTransactions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    transactionsSent?: boolean | UserCountOutputTypeCountTransactionsSentArgs
-    transactionsReceived?: boolean | UserCountOutputTypeCountTransactionsReceivedArgs
+    sentTransactions?: boolean | UserCountOutputTypeCountSentTransactionsArgs
+    receivedTransactions?: boolean | UserCountOutputTypeCountReceivedTransactionsArgs
   }
 
   // Custom InputTypes
@@ -983,14 +983,14 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountTransactionsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountSentTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountTransactionsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountReceivedTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TransactionWhereInput
   }
 
@@ -1027,6 +1027,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     balance: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1035,6 +1037,8 @@ export namespace Prisma {
     email: string | null
     password: string | null
     balance: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1043,6 +1047,8 @@ export namespace Prisma {
     email: number
     password: number
     balance: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -1063,6 +1069,8 @@ export namespace Prisma {
     email?: true
     password?: true
     balance?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1071,6 +1079,8 @@ export namespace Prisma {
     email?: true
     password?: true
     balance?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1079,6 +1089,8 @@ export namespace Prisma {
     email?: true
     password?: true
     balance?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1174,6 +1186,8 @@ export namespace Prisma {
     email: string
     password: string
     balance: number
+    createdAt: Date
+    updatedAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1201,8 +1215,10 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     balance?: boolean
-    transactionsSent?: boolean | User$transactionsSentArgs<ExtArgs>
-    transactionsReceived?: boolean | User$transactionsReceivedArgs<ExtArgs>
+    createdAt?: boolean
+    updatedAt?: boolean
+    sentTransactions?: boolean | User$sentTransactionsArgs<ExtArgs>
+    receivedTransactions?: boolean | User$receivedTransactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1212,6 +1228,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     balance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1220,6 +1238,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     balance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1228,12 +1248,14 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     balance?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "balance", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "balance" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    transactionsSent?: boolean | User$transactionsSentArgs<ExtArgs>
-    transactionsReceived?: boolean | User$transactionsReceivedArgs<ExtArgs>
+    sentTransactions?: boolean | User$sentTransactionsArgs<ExtArgs>
+    receivedTransactions?: boolean | User$receivedTransactionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1242,8 +1264,8 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      transactionsSent: Prisma.$TransactionPayload<ExtArgs>[]
-      transactionsReceived: Prisma.$TransactionPayload<ExtArgs>[]
+      sentTransactions: Prisma.$TransactionPayload<ExtArgs>[]
+      receivedTransactions: Prisma.$TransactionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1251,6 +1273,8 @@ export namespace Prisma {
       email: string
       password: string
       balance: number
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1645,8 +1669,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    transactionsSent<T extends User$transactionsSentArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    transactionsReceived<T extends User$transactionsReceivedArgs<ExtArgs> = {}>(args?: Subset<T, User$transactionsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sentTransactions<T extends User$sentTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sentTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    receivedTransactions<T extends User$receivedTransactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1681,6 +1705,8 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly balance: FieldRef<"User", 'Float'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2067,9 +2093,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.transactionsSent
+   * User.sentTransactions
    */
-  export type User$transactionsSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$sentTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Transaction
      */
@@ -2091,9 +2117,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.transactionsReceived
+   * User.receivedTransactions
    */
-  export type User$transactionsReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$receivedTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Transaction
      */
@@ -2148,45 +2174,56 @@ export namespace Prisma {
   export type TransactionAvgAggregateOutputType = {
     id: number | null
     amount: number | null
-    senderId: number | null
-    receiverId: number | null
+    fromUserId: number | null
+    toUserId: number | null
+    reversalId: number | null
   }
 
   export type TransactionSumAggregateOutputType = {
     id: number | null
     amount: number | null
-    senderId: number | null
-    receiverId: number | null
+    fromUserId: number | null
+    toUserId: number | null
+    reversalId: number | null
   }
 
   export type TransactionMinAggregateOutputType = {
     id: number | null
     amount: number | null
     type: string | null
-    senderId: number | null
-    receiverId: number | null
+    fromUserId: number | null
+    toUserId: number | null
+    status: string | null
+    description: string | null
     createdAt: Date | null
-    reversed: boolean | null
+    reversedAt: Date | null
+    reversalId: number | null
   }
 
   export type TransactionMaxAggregateOutputType = {
     id: number | null
     amount: number | null
     type: string | null
-    senderId: number | null
-    receiverId: number | null
+    fromUserId: number | null
+    toUserId: number | null
+    status: string | null
+    description: string | null
     createdAt: Date | null
-    reversed: boolean | null
+    reversedAt: Date | null
+    reversalId: number | null
   }
 
   export type TransactionCountAggregateOutputType = {
     id: number
     amount: number
     type: number
-    senderId: number
-    receiverId: number
+    fromUserId: number
+    toUserId: number
+    status: number
+    description: number
     createdAt: number
-    reversed: number
+    reversedAt: number
+    reversalId: number
     _all: number
   }
 
@@ -2194,45 +2231,56 @@ export namespace Prisma {
   export type TransactionAvgAggregateInputType = {
     id?: true
     amount?: true
-    senderId?: true
-    receiverId?: true
+    fromUserId?: true
+    toUserId?: true
+    reversalId?: true
   }
 
   export type TransactionSumAggregateInputType = {
     id?: true
     amount?: true
-    senderId?: true
-    receiverId?: true
+    fromUserId?: true
+    toUserId?: true
+    reversalId?: true
   }
 
   export type TransactionMinAggregateInputType = {
     id?: true
     amount?: true
     type?: true
-    senderId?: true
-    receiverId?: true
+    fromUserId?: true
+    toUserId?: true
+    status?: true
+    description?: true
     createdAt?: true
-    reversed?: true
+    reversedAt?: true
+    reversalId?: true
   }
 
   export type TransactionMaxAggregateInputType = {
     id?: true
     amount?: true
     type?: true
-    senderId?: true
-    receiverId?: true
+    fromUserId?: true
+    toUserId?: true
+    status?: true
+    description?: true
     createdAt?: true
-    reversed?: true
+    reversedAt?: true
+    reversalId?: true
   }
 
   export type TransactionCountAggregateInputType = {
     id?: true
     amount?: true
     type?: true
-    senderId?: true
-    receiverId?: true
+    fromUserId?: true
+    toUserId?: true
+    status?: true
+    description?: true
     createdAt?: true
-    reversed?: true
+    reversedAt?: true
+    reversalId?: true
     _all?: true
   }
 
@@ -2326,10 +2374,13 @@ export namespace Prisma {
     id: number
     amount: number
     type: string
-    senderId: number | null
-    receiverId: number | null
+    fromUserId: number | null
+    toUserId: number | null
+    status: string
+    description: string | null
     createdAt: Date
-    reversed: boolean
+    reversedAt: Date | null
+    reversalId: number | null
     _count: TransactionCountAggregateOutputType | null
     _avg: TransactionAvgAggregateOutputType | null
     _sum: TransactionSumAggregateOutputType | null
@@ -2355,76 +2406,101 @@ export namespace Prisma {
     id?: boolean
     amount?: boolean
     type?: boolean
-    senderId?: boolean
-    receiverId?: boolean
+    fromUserId?: boolean
+    toUserId?: boolean
+    status?: boolean
+    description?: boolean
     createdAt?: boolean
-    reversed?: boolean
-    sender?: boolean | Transaction$senderArgs<ExtArgs>
-    receiver?: boolean | Transaction$receiverArgs<ExtArgs>
+    reversedAt?: boolean
+    reversalId?: boolean
+    fromUser?: boolean | Transaction$fromUserArgs<ExtArgs>
+    toUser?: boolean | Transaction$toUserArgs<ExtArgs>
+    reversal?: boolean | Transaction$reversalArgs<ExtArgs>
+    originalTransaction?: boolean | Transaction$originalTransactionArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amount?: boolean
     type?: boolean
-    senderId?: boolean
-    receiverId?: boolean
+    fromUserId?: boolean
+    toUserId?: boolean
+    status?: boolean
+    description?: boolean
     createdAt?: boolean
-    reversed?: boolean
-    sender?: boolean | Transaction$senderArgs<ExtArgs>
-    receiver?: boolean | Transaction$receiverArgs<ExtArgs>
+    reversedAt?: boolean
+    reversalId?: boolean
+    fromUser?: boolean | Transaction$fromUserArgs<ExtArgs>
+    toUser?: boolean | Transaction$toUserArgs<ExtArgs>
+    reversal?: boolean | Transaction$reversalArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     amount?: boolean
     type?: boolean
-    senderId?: boolean
-    receiverId?: boolean
+    fromUserId?: boolean
+    toUserId?: boolean
+    status?: boolean
+    description?: boolean
     createdAt?: boolean
-    reversed?: boolean
-    sender?: boolean | Transaction$senderArgs<ExtArgs>
-    receiver?: boolean | Transaction$receiverArgs<ExtArgs>
+    reversedAt?: boolean
+    reversalId?: boolean
+    fromUser?: boolean | Transaction$fromUserArgs<ExtArgs>
+    toUser?: boolean | Transaction$toUserArgs<ExtArgs>
+    reversal?: boolean | Transaction$reversalArgs<ExtArgs>
   }, ExtArgs["result"]["transaction"]>
 
   export type TransactionSelectScalar = {
     id?: boolean
     amount?: boolean
     type?: boolean
-    senderId?: boolean
-    receiverId?: boolean
+    fromUserId?: boolean
+    toUserId?: boolean
+    status?: boolean
+    description?: boolean
     createdAt?: boolean
-    reversed?: boolean
+    reversedAt?: boolean
+    reversalId?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "type" | "senderId" | "receiverId" | "createdAt" | "reversed", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "type" | "fromUserId" | "toUserId" | "status" | "description" | "createdAt" | "reversedAt" | "reversalId", ExtArgs["result"]["transaction"]>
   export type TransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sender?: boolean | Transaction$senderArgs<ExtArgs>
-    receiver?: boolean | Transaction$receiverArgs<ExtArgs>
+    fromUser?: boolean | Transaction$fromUserArgs<ExtArgs>
+    toUser?: boolean | Transaction$toUserArgs<ExtArgs>
+    reversal?: boolean | Transaction$reversalArgs<ExtArgs>
+    originalTransaction?: boolean | Transaction$originalTransactionArgs<ExtArgs>
   }
   export type TransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sender?: boolean | Transaction$senderArgs<ExtArgs>
-    receiver?: boolean | Transaction$receiverArgs<ExtArgs>
+    fromUser?: boolean | Transaction$fromUserArgs<ExtArgs>
+    toUser?: boolean | Transaction$toUserArgs<ExtArgs>
+    reversal?: boolean | Transaction$reversalArgs<ExtArgs>
   }
   export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sender?: boolean | Transaction$senderArgs<ExtArgs>
-    receiver?: boolean | Transaction$receiverArgs<ExtArgs>
+    fromUser?: boolean | Transaction$fromUserArgs<ExtArgs>
+    toUser?: boolean | Transaction$toUserArgs<ExtArgs>
+    reversal?: boolean | Transaction$reversalArgs<ExtArgs>
   }
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
     objects: {
-      sender: Prisma.$UserPayload<ExtArgs> | null
-      receiver: Prisma.$UserPayload<ExtArgs> | null
+      fromUser: Prisma.$UserPayload<ExtArgs> | null
+      toUser: Prisma.$UserPayload<ExtArgs> | null
+      reversal: Prisma.$TransactionPayload<ExtArgs> | null
+      originalTransaction: Prisma.$TransactionPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       amount: number
       type: string
-      senderId: number | null
-      receiverId: number | null
+      fromUserId: number | null
+      toUserId: number | null
+      status: string
+      description: string | null
       createdAt: Date
-      reversed: boolean
+      reversedAt: Date | null
+      reversalId: number | null
     }, ExtArgs["result"]["transaction"]>
     composites: {}
   }
@@ -2819,8 +2895,10 @@ export namespace Prisma {
    */
   export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sender<T extends Transaction$senderArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$senderArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    receiver<T extends Transaction$receiverArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$receiverArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    fromUser<T extends Transaction$fromUserArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$fromUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    toUser<T extends Transaction$toUserArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$toUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    reversal<T extends Transaction$reversalArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$reversalArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    originalTransaction<T extends Transaction$originalTransactionArgs<ExtArgs> = {}>(args?: Subset<T, Transaction$originalTransactionArgs<ExtArgs>>): Prisma__TransactionClient<$Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2853,10 +2931,13 @@ export namespace Prisma {
     readonly id: FieldRef<"Transaction", 'Int'>
     readonly amount: FieldRef<"Transaction", 'Float'>
     readonly type: FieldRef<"Transaction", 'String'>
-    readonly senderId: FieldRef<"Transaction", 'Int'>
-    readonly receiverId: FieldRef<"Transaction", 'Int'>
+    readonly fromUserId: FieldRef<"Transaction", 'Int'>
+    readonly toUserId: FieldRef<"Transaction", 'Int'>
+    readonly status: FieldRef<"Transaction", 'String'>
+    readonly description: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
-    readonly reversed: FieldRef<"Transaction", 'Boolean'>
+    readonly reversedAt: FieldRef<"Transaction", 'DateTime'>
+    readonly reversalId: FieldRef<"Transaction", 'Int'>
   }
     
 
@@ -3251,9 +3332,9 @@ export namespace Prisma {
   }
 
   /**
-   * Transaction.sender
+   * Transaction.fromUser
    */
-  export type Transaction$senderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Transaction$fromUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -3270,9 +3351,9 @@ export namespace Prisma {
   }
 
   /**
-   * Transaction.receiver
+   * Transaction.toUser
    */
-  export type Transaction$receiverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Transaction$toUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -3286,6 +3367,44 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Transaction.reversal
+   */
+  export type Transaction$reversalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
+  }
+
+  /**
+   * Transaction.originalTransaction
+   */
+  export type Transaction$originalTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaction
+     */
+    select?: TransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaction
+     */
+    omit?: TransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionInclude<ExtArgs> | null
+    where?: TransactionWhereInput
   }
 
   /**
@@ -3323,7 +3442,9 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     password: 'password',
-    balance: 'balance'
+    balance: 'balance',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3333,10 +3454,13 @@ export namespace Prisma {
     id: 'id',
     amount: 'amount',
     type: 'type',
-    senderId: 'senderId',
-    receiverId: 'receiverId',
+    fromUserId: 'fromUserId',
+    toUserId: 'toUserId',
+    status: 'status',
+    description: 'description',
     createdAt: 'createdAt',
-    reversed: 'reversed'
+    reversedAt: 'reversedAt',
+    reversalId: 'reversalId'
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
@@ -3389,13 +3513,6 @@ export namespace Prisma {
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
     
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
   /**
    * Deep Input Types
    */
@@ -3410,8 +3527,10 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     balance?: FloatFilter<"User"> | number
-    transactionsSent?: TransactionListRelationFilter
-    transactionsReceived?: TransactionListRelationFilter
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    sentTransactions?: TransactionListRelationFilter
+    receivedTransactions?: TransactionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3420,8 +3539,10 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     balance?: SortOrder
-    transactionsSent?: TransactionOrderByRelationAggregateInput
-    transactionsReceived?: TransactionOrderByRelationAggregateInput
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    sentTransactions?: TransactionOrderByRelationAggregateInput
+    receivedTransactions?: TransactionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -3433,8 +3554,10 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     balance?: FloatFilter<"User"> | number
-    transactionsSent?: TransactionListRelationFilter
-    transactionsReceived?: TransactionListRelationFilter
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+    sentTransactions?: TransactionListRelationFilter
+    receivedTransactions?: TransactionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -3443,6 +3566,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     balance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -3459,6 +3584,8 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     balance?: FloatWithAggregatesFilter<"User"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type TransactionWhereInput = {
@@ -3468,49 +3595,67 @@ export namespace Prisma {
     id?: IntFilter<"Transaction"> | number
     amount?: FloatFilter<"Transaction"> | number
     type?: StringFilter<"Transaction"> | string
-    senderId?: IntNullableFilter<"Transaction"> | number | null
-    receiverId?: IntNullableFilter<"Transaction"> | number | null
+    fromUserId?: IntNullableFilter<"Transaction"> | number | null
+    toUserId?: IntNullableFilter<"Transaction"> | number | null
+    status?: StringFilter<"Transaction"> | string
+    description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    reversed?: BoolFilter<"Transaction"> | boolean
-    sender?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    receiver?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    reversedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    reversalId?: IntNullableFilter<"Transaction"> | number | null
+    fromUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    toUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    reversal?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+    originalTransaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
   }
 
   export type TransactionOrderByWithRelationInput = {
     id?: SortOrder
     amount?: SortOrder
     type?: SortOrder
-    senderId?: SortOrderInput | SortOrder
-    receiverId?: SortOrderInput | SortOrder
+    fromUserId?: SortOrderInput | SortOrder
+    toUserId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    reversed?: SortOrder
-    sender?: UserOrderByWithRelationInput
-    receiver?: UserOrderByWithRelationInput
+    reversedAt?: SortOrderInput | SortOrder
+    reversalId?: SortOrderInput | SortOrder
+    fromUser?: UserOrderByWithRelationInput
+    toUser?: UserOrderByWithRelationInput
+    reversal?: TransactionOrderByWithRelationInput
+    originalTransaction?: TransactionOrderByWithRelationInput
   }
 
   export type TransactionWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    reversalId?: number
     AND?: TransactionWhereInput | TransactionWhereInput[]
     OR?: TransactionWhereInput[]
     NOT?: TransactionWhereInput | TransactionWhereInput[]
     amount?: FloatFilter<"Transaction"> | number
     type?: StringFilter<"Transaction"> | string
-    senderId?: IntNullableFilter<"Transaction"> | number | null
-    receiverId?: IntNullableFilter<"Transaction"> | number | null
+    fromUserId?: IntNullableFilter<"Transaction"> | number | null
+    toUserId?: IntNullableFilter<"Transaction"> | number | null
+    status?: StringFilter<"Transaction"> | string
+    description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    reversed?: BoolFilter<"Transaction"> | boolean
-    sender?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    receiver?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id">
+    reversedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    fromUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    toUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    reversal?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+    originalTransaction?: XOR<TransactionNullableScalarRelationFilter, TransactionWhereInput> | null
+  }, "id" | "reversalId">
 
   export type TransactionOrderByWithAggregationInput = {
     id?: SortOrder
     amount?: SortOrder
     type?: SortOrder
-    senderId?: SortOrderInput | SortOrder
-    receiverId?: SortOrderInput | SortOrder
+    fromUserId?: SortOrderInput | SortOrder
+    toUserId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    reversed?: SortOrder
+    reversedAt?: SortOrderInput | SortOrder
+    reversalId?: SortOrderInput | SortOrder
     _count?: TransactionCountOrderByAggregateInput
     _avg?: TransactionAvgOrderByAggregateInput
     _max?: TransactionMaxOrderByAggregateInput
@@ -3525,10 +3670,13 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Transaction"> | number
     amount?: FloatWithAggregatesFilter<"Transaction"> | number
     type?: StringWithAggregatesFilter<"Transaction"> | string
-    senderId?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
-    receiverId?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
+    fromUserId?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
+    toUserId?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
+    status?: StringWithAggregatesFilter<"Transaction"> | string
+    description?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
-    reversed?: BoolWithAggregatesFilter<"Transaction"> | boolean
+    reversedAt?: DateTimeNullableWithAggregatesFilter<"Transaction"> | Date | string | null
+    reversalId?: IntNullableWithAggregatesFilter<"Transaction"> | number | null
   }
 
   export type UserCreateInput = {
@@ -3536,8 +3684,10 @@ export namespace Prisma {
     email: string
     password: string
     balance?: number
-    transactionsSent?: TransactionCreateNestedManyWithoutSenderInput
-    transactionsReceived?: TransactionCreateNestedManyWithoutReceiverInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sentTransactions?: TransactionCreateNestedManyWithoutFromUserInput
+    receivedTransactions?: TransactionCreateNestedManyWithoutToUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3546,8 +3696,10 @@ export namespace Prisma {
     email: string
     password: string
     balance?: number
-    transactionsSent?: TransactionUncheckedCreateNestedManyWithoutSenderInput
-    transactionsReceived?: TransactionUncheckedCreateNestedManyWithoutReceiverInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sentTransactions?: TransactionUncheckedCreateNestedManyWithoutFromUserInput
+    receivedTransactions?: TransactionUncheckedCreateNestedManyWithoutToUserInput
   }
 
   export type UserUpdateInput = {
@@ -3555,8 +3707,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
-    transactionsSent?: TransactionUpdateManyWithoutSenderNestedInput
-    transactionsReceived?: TransactionUpdateManyWithoutReceiverNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentTransactions?: TransactionUpdateManyWithoutFromUserNestedInput
+    receivedTransactions?: TransactionUpdateManyWithoutToUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3565,8 +3719,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
-    transactionsSent?: TransactionUncheckedUpdateManyWithoutSenderNestedInput
-    transactionsReceived?: TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentTransactions?: TransactionUncheckedUpdateManyWithoutFromUserNestedInput
+    receivedTransactions?: TransactionUncheckedUpdateManyWithoutToUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3575,6 +3731,8 @@ export namespace Prisma {
     email: string
     password: string
     balance?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3582,6 +3740,8 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3590,71 +3750,97 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     balance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TransactionCreateInput = {
     amount: number
     type: string
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
-    sender?: UserCreateNestedOneWithoutTransactionsSentInput
-    receiver?: UserCreateNestedOneWithoutTransactionsReceivedInput
+    reversedAt?: Date | string | null
+    fromUser?: UserCreateNestedOneWithoutSentTransactionsInput
+    toUser?: UserCreateNestedOneWithoutReceivedTransactionsInput
+    reversal?: TransactionCreateNestedOneWithoutOriginalTransactionInput
+    originalTransaction?: TransactionCreateNestedOneWithoutReversalInput
   }
 
   export type TransactionUncheckedCreateInput = {
     id?: number
     amount: number
     type: string
-    senderId?: number | null
-    receiverId?: number | null
+    fromUserId?: number | null
+    toUserId?: number | null
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
+    reversedAt?: Date | string | null
+    reversalId?: number | null
+    originalTransaction?: TransactionUncheckedCreateNestedOneWithoutReversalInput
   }
 
   export type TransactionUpdateInput = {
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
-    sender?: UserUpdateOneWithoutTransactionsSentNestedInput
-    receiver?: UserUpdateOneWithoutTransactionsReceivedNestedInput
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fromUser?: UserUpdateOneWithoutSentTransactionsNestedInput
+    toUser?: UserUpdateOneWithoutReceivedTransactionsNestedInput
+    reversal?: TransactionUpdateOneWithoutOriginalTransactionNestedInput
+    originalTransaction?: TransactionUpdateOneWithoutReversalNestedInput
   }
 
   export type TransactionUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    senderId?: NullableIntFieldUpdateOperationsInput | number | null
-    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    toUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
+    originalTransaction?: TransactionUncheckedUpdateOneWithoutReversalNestedInput
   }
 
   export type TransactionCreateManyInput = {
     id?: number
     amount: number
     type: string
-    senderId?: number | null
-    receiverId?: number | null
+    fromUserId?: number | null
+    toUserId?: number | null
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
+    reversedAt?: Date | string | null
+    reversalId?: number | null
   }
 
   export type TransactionUpdateManyMutationInput = {
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TransactionUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    senderId?: NullableIntFieldUpdateOperationsInput | number | null
-    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    toUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3693,6 +3879,17 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type TransactionListRelationFilter = {
     every?: TransactionWhereInput
     some?: TransactionWhereInput
@@ -3709,6 +3906,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     balance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -3722,6 +3921,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     balance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3730,6 +3931,8 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     balance?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -3786,6 +3989,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -3797,25 +4014,39 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type TransactionNullableScalarRelationFilter = {
+    is?: TransactionWhereInput | null
+    isNot?: TransactionWhereInput | null
   }
 
   export type SortOrderInput = {
@@ -3827,44 +4058,55 @@ export namespace Prisma {
     id?: SortOrder
     amount?: SortOrder
     type?: SortOrder
-    senderId?: SortOrder
-    receiverId?: SortOrder
+    fromUserId?: SortOrder
+    toUserId?: SortOrder
+    status?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
-    reversed?: SortOrder
+    reversedAt?: SortOrder
+    reversalId?: SortOrder
   }
 
   export type TransactionAvgOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
-    senderId?: SortOrder
-    receiverId?: SortOrder
+    fromUserId?: SortOrder
+    toUserId?: SortOrder
+    reversalId?: SortOrder
   }
 
   export type TransactionMaxOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
     type?: SortOrder
-    senderId?: SortOrder
-    receiverId?: SortOrder
+    fromUserId?: SortOrder
+    toUserId?: SortOrder
+    status?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
-    reversed?: SortOrder
+    reversedAt?: SortOrder
+    reversalId?: SortOrder
   }
 
   export type TransactionMinOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
     type?: SortOrder
-    senderId?: SortOrder
-    receiverId?: SortOrder
+    fromUserId?: SortOrder
+    toUserId?: SortOrder
+    status?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
-    reversed?: SortOrder
+    reversedAt?: SortOrder
+    reversalId?: SortOrder
   }
 
   export type TransactionSumOrderByAggregateInput = {
     id?: SortOrder
     amount?: SortOrder
-    senderId?: SortOrder
-    receiverId?: SortOrder
+    fromUserId?: SortOrder
+    toUserId?: SortOrder
+    reversalId?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3883,53 +4125,62 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type TransactionCreateNestedManyWithoutSenderInput = {
-    create?: XOR<TransactionCreateWithoutSenderInput, TransactionUncheckedCreateWithoutSenderInput> | TransactionCreateWithoutSenderInput[] | TransactionUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutSenderInput | TransactionCreateOrConnectWithoutSenderInput[]
-    createMany?: TransactionCreateManySenderInputEnvelope
+  export type TransactionCreateNestedManyWithoutFromUserInput = {
+    create?: XOR<TransactionCreateWithoutFromUserInput, TransactionUncheckedCreateWithoutFromUserInput> | TransactionCreateWithoutFromUserInput[] | TransactionUncheckedCreateWithoutFromUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutFromUserInput | TransactionCreateOrConnectWithoutFromUserInput[]
+    createMany?: TransactionCreateManyFromUserInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type TransactionCreateNestedManyWithoutReceiverInput = {
-    create?: XOR<TransactionCreateWithoutReceiverInput, TransactionUncheckedCreateWithoutReceiverInput> | TransactionCreateWithoutReceiverInput[] | TransactionUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutReceiverInput | TransactionCreateOrConnectWithoutReceiverInput[]
-    createMany?: TransactionCreateManyReceiverInputEnvelope
+  export type TransactionCreateNestedManyWithoutToUserInput = {
+    create?: XOR<TransactionCreateWithoutToUserInput, TransactionUncheckedCreateWithoutToUserInput> | TransactionCreateWithoutToUserInput[] | TransactionUncheckedCreateWithoutToUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutToUserInput | TransactionCreateOrConnectWithoutToUserInput[]
+    createMany?: TransactionCreateManyToUserInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type TransactionUncheckedCreateNestedManyWithoutSenderInput = {
-    create?: XOR<TransactionCreateWithoutSenderInput, TransactionUncheckedCreateWithoutSenderInput> | TransactionCreateWithoutSenderInput[] | TransactionUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutSenderInput | TransactionCreateOrConnectWithoutSenderInput[]
-    createMany?: TransactionCreateManySenderInputEnvelope
+  export type TransactionUncheckedCreateNestedManyWithoutFromUserInput = {
+    create?: XOR<TransactionCreateWithoutFromUserInput, TransactionUncheckedCreateWithoutFromUserInput> | TransactionCreateWithoutFromUserInput[] | TransactionUncheckedCreateWithoutFromUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutFromUserInput | TransactionCreateOrConnectWithoutFromUserInput[]
+    createMany?: TransactionCreateManyFromUserInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
-  export type TransactionUncheckedCreateNestedManyWithoutReceiverInput = {
-    create?: XOR<TransactionCreateWithoutReceiverInput, TransactionUncheckedCreateWithoutReceiverInput> | TransactionCreateWithoutReceiverInput[] | TransactionUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutReceiverInput | TransactionCreateOrConnectWithoutReceiverInput[]
-    createMany?: TransactionCreateManyReceiverInputEnvelope
+  export type TransactionUncheckedCreateNestedManyWithoutToUserInput = {
+    create?: XOR<TransactionCreateWithoutToUserInput, TransactionUncheckedCreateWithoutToUserInput> | TransactionCreateWithoutToUserInput[] | TransactionUncheckedCreateWithoutToUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutToUserInput | TransactionCreateOrConnectWithoutToUserInput[]
+    createMany?: TransactionCreateManyToUserInputEnvelope
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
   }
 
@@ -3945,31 +4196,35 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type TransactionUpdateManyWithoutSenderNestedInput = {
-    create?: XOR<TransactionCreateWithoutSenderInput, TransactionUncheckedCreateWithoutSenderInput> | TransactionCreateWithoutSenderInput[] | TransactionUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutSenderInput | TransactionCreateOrConnectWithoutSenderInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutSenderInput | TransactionUpsertWithWhereUniqueWithoutSenderInput[]
-    createMany?: TransactionCreateManySenderInputEnvelope
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type TransactionUpdateManyWithoutFromUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutFromUserInput, TransactionUncheckedCreateWithoutFromUserInput> | TransactionCreateWithoutFromUserInput[] | TransactionUncheckedCreateWithoutFromUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutFromUserInput | TransactionCreateOrConnectWithoutFromUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutFromUserInput | TransactionUpsertWithWhereUniqueWithoutFromUserInput[]
+    createMany?: TransactionCreateManyFromUserInputEnvelope
     set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutSenderInput | TransactionUpdateWithWhereUniqueWithoutSenderInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutSenderInput | TransactionUpdateManyWithWhereWithoutSenderInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutFromUserInput | TransactionUpdateWithWhereUniqueWithoutFromUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutFromUserInput | TransactionUpdateManyWithWhereWithoutFromUserInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type TransactionUpdateManyWithoutReceiverNestedInput = {
-    create?: XOR<TransactionCreateWithoutReceiverInput, TransactionUncheckedCreateWithoutReceiverInput> | TransactionCreateWithoutReceiverInput[] | TransactionUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutReceiverInput | TransactionCreateOrConnectWithoutReceiverInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutReceiverInput | TransactionUpsertWithWhereUniqueWithoutReceiverInput[]
-    createMany?: TransactionCreateManyReceiverInputEnvelope
+  export type TransactionUpdateManyWithoutToUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutToUserInput, TransactionUncheckedCreateWithoutToUserInput> | TransactionCreateWithoutToUserInput[] | TransactionUncheckedCreateWithoutToUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutToUserInput | TransactionCreateOrConnectWithoutToUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutToUserInput | TransactionUpsertWithWhereUniqueWithoutToUserInput[]
+    createMany?: TransactionCreateManyToUserInputEnvelope
     set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutReceiverInput | TransactionUpdateWithWhereUniqueWithoutReceiverInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutReceiverInput | TransactionUpdateManyWithWhereWithoutReceiverInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutToUserInput | TransactionUpdateWithWhereUniqueWithoutToUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutToUserInput | TransactionUpdateManyWithWhereWithoutToUserInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
@@ -3981,72 +4236,110 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type TransactionUncheckedUpdateManyWithoutSenderNestedInput = {
-    create?: XOR<TransactionCreateWithoutSenderInput, TransactionUncheckedCreateWithoutSenderInput> | TransactionCreateWithoutSenderInput[] | TransactionUncheckedCreateWithoutSenderInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutSenderInput | TransactionCreateOrConnectWithoutSenderInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutSenderInput | TransactionUpsertWithWhereUniqueWithoutSenderInput[]
-    createMany?: TransactionCreateManySenderInputEnvelope
+  export type TransactionUncheckedUpdateManyWithoutFromUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutFromUserInput, TransactionUncheckedCreateWithoutFromUserInput> | TransactionCreateWithoutFromUserInput[] | TransactionUncheckedCreateWithoutFromUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutFromUserInput | TransactionCreateOrConnectWithoutFromUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutFromUserInput | TransactionUpsertWithWhereUniqueWithoutFromUserInput[]
+    createMany?: TransactionCreateManyFromUserInputEnvelope
     set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutSenderInput | TransactionUpdateWithWhereUniqueWithoutSenderInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutSenderInput | TransactionUpdateManyWithWhereWithoutSenderInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutFromUserInput | TransactionUpdateWithWhereUniqueWithoutFromUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutFromUserInput | TransactionUpdateManyWithWhereWithoutFromUserInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type TransactionUncheckedUpdateManyWithoutReceiverNestedInput = {
-    create?: XOR<TransactionCreateWithoutReceiverInput, TransactionUncheckedCreateWithoutReceiverInput> | TransactionCreateWithoutReceiverInput[] | TransactionUncheckedCreateWithoutReceiverInput[]
-    connectOrCreate?: TransactionCreateOrConnectWithoutReceiverInput | TransactionCreateOrConnectWithoutReceiverInput[]
-    upsert?: TransactionUpsertWithWhereUniqueWithoutReceiverInput | TransactionUpsertWithWhereUniqueWithoutReceiverInput[]
-    createMany?: TransactionCreateManyReceiverInputEnvelope
+  export type TransactionUncheckedUpdateManyWithoutToUserNestedInput = {
+    create?: XOR<TransactionCreateWithoutToUserInput, TransactionUncheckedCreateWithoutToUserInput> | TransactionCreateWithoutToUserInput[] | TransactionUncheckedCreateWithoutToUserInput[]
+    connectOrCreate?: TransactionCreateOrConnectWithoutToUserInput | TransactionCreateOrConnectWithoutToUserInput[]
+    upsert?: TransactionUpsertWithWhereUniqueWithoutToUserInput | TransactionUpsertWithWhereUniqueWithoutToUserInput[]
+    createMany?: TransactionCreateManyToUserInputEnvelope
     set?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     disconnect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     delete?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
     connect?: TransactionWhereUniqueInput | TransactionWhereUniqueInput[]
-    update?: TransactionUpdateWithWhereUniqueWithoutReceiverInput | TransactionUpdateWithWhereUniqueWithoutReceiverInput[]
-    updateMany?: TransactionUpdateManyWithWhereWithoutReceiverInput | TransactionUpdateManyWithWhereWithoutReceiverInput[]
+    update?: TransactionUpdateWithWhereUniqueWithoutToUserInput | TransactionUpdateWithWhereUniqueWithoutToUserInput[]
+    updateMany?: TransactionUpdateManyWithWhereWithoutToUserInput | TransactionUpdateManyWithWhereWithoutToUserInput[]
     deleteMany?: TransactionScalarWhereInput | TransactionScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutTransactionsSentInput = {
-    create?: XOR<UserCreateWithoutTransactionsSentInput, UserUncheckedCreateWithoutTransactionsSentInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTransactionsSentInput
+  export type UserCreateNestedOneWithoutSentTransactionsInput = {
+    create?: XOR<UserCreateWithoutSentTransactionsInput, UserUncheckedCreateWithoutSentTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentTransactionsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutTransactionsReceivedInput = {
-    create?: XOR<UserCreateWithoutTransactionsReceivedInput, UserUncheckedCreateWithoutTransactionsReceivedInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTransactionsReceivedInput
+  export type UserCreateNestedOneWithoutReceivedTransactionsInput = {
+    create?: XOR<UserCreateWithoutReceivedTransactionsInput, UserUncheckedCreateWithoutReceivedTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedTransactionsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type TransactionCreateNestedOneWithoutOriginalTransactionInput = {
+    create?: XOR<TransactionCreateWithoutOriginalTransactionInput, TransactionUncheckedCreateWithoutOriginalTransactionInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutOriginalTransactionInput
+    connect?: TransactionWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type TransactionCreateNestedOneWithoutReversalInput = {
+    create?: XOR<TransactionCreateWithoutReversalInput, TransactionUncheckedCreateWithoutReversalInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutReversalInput
+    connect?: TransactionWhereUniqueInput
   }
 
-  export type UserUpdateOneWithoutTransactionsSentNestedInput = {
-    create?: XOR<UserCreateWithoutTransactionsSentInput, UserUncheckedCreateWithoutTransactionsSentInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTransactionsSentInput
-    upsert?: UserUpsertWithoutTransactionsSentInput
+  export type TransactionUncheckedCreateNestedOneWithoutReversalInput = {
+    create?: XOR<TransactionCreateWithoutReversalInput, TransactionUncheckedCreateWithoutReversalInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutReversalInput
+    connect?: TransactionWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type UserUpdateOneWithoutSentTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutSentTransactionsInput, UserUncheckedCreateWithoutSentTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSentTransactionsInput
+    upsert?: UserUpsertWithoutSentTransactionsInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsSentInput, UserUpdateWithoutTransactionsSentInput>, UserUncheckedUpdateWithoutTransactionsSentInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentTransactionsInput, UserUpdateWithoutSentTransactionsInput>, UserUncheckedUpdateWithoutSentTransactionsInput>
   }
 
-  export type UserUpdateOneWithoutTransactionsReceivedNestedInput = {
-    create?: XOR<UserCreateWithoutTransactionsReceivedInput, UserUncheckedCreateWithoutTransactionsReceivedInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTransactionsReceivedInput
-    upsert?: UserUpsertWithoutTransactionsReceivedInput
+  export type UserUpdateOneWithoutReceivedTransactionsNestedInput = {
+    create?: XOR<UserCreateWithoutReceivedTransactionsInput, UserUncheckedCreateWithoutReceivedTransactionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReceivedTransactionsInput
+    upsert?: UserUpsertWithoutReceivedTransactionsInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTransactionsReceivedInput, UserUpdateWithoutTransactionsReceivedInput>, UserUncheckedUpdateWithoutTransactionsReceivedInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReceivedTransactionsInput, UserUpdateWithoutReceivedTransactionsInput>, UserUncheckedUpdateWithoutReceivedTransactionsInput>
+  }
+
+  export type TransactionUpdateOneWithoutOriginalTransactionNestedInput = {
+    create?: XOR<TransactionCreateWithoutOriginalTransactionInput, TransactionUncheckedCreateWithoutOriginalTransactionInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutOriginalTransactionInput
+    upsert?: TransactionUpsertWithoutOriginalTransactionInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutOriginalTransactionInput, TransactionUpdateWithoutOriginalTransactionInput>, TransactionUncheckedUpdateWithoutOriginalTransactionInput>
+  }
+
+  export type TransactionUpdateOneWithoutReversalNestedInput = {
+    create?: XOR<TransactionCreateWithoutReversalInput, TransactionUncheckedCreateWithoutReversalInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutReversalInput
+    upsert?: TransactionUpsertWithoutReversalInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutReversalInput, TransactionUpdateWithoutReversalInput>, TransactionUncheckedUpdateWithoutReversalInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -4055,6 +4348,16 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type TransactionUncheckedUpdateOneWithoutReversalNestedInput = {
+    create?: XOR<TransactionCreateWithoutReversalInput, TransactionUncheckedCreateWithoutReversalInput>
+    connectOrCreate?: TransactionCreateOrConnectWithoutReversalInput
+    upsert?: TransactionUpsertWithoutReversalInput
+    disconnect?: TransactionWhereInput | boolean
+    delete?: TransactionWhereInput | boolean
+    connect?: TransactionWhereUniqueInput
+    update?: XOR<XOR<TransactionUpdateToOneWithWhereWithoutReversalInput, TransactionUpdateWithoutReversalInput>, TransactionUncheckedUpdateWithoutReversalInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4091,6 +4394,17 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -4142,6 +4456,20 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -4153,20 +4481,29 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -4196,94 +4533,119 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type TransactionCreateWithoutSenderInput = {
+  export type TransactionCreateWithoutFromUserInput = {
     amount: number
     type: string
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
-    receiver?: UserCreateNestedOneWithoutTransactionsReceivedInput
+    reversedAt?: Date | string | null
+    toUser?: UserCreateNestedOneWithoutReceivedTransactionsInput
+    reversal?: TransactionCreateNestedOneWithoutOriginalTransactionInput
+    originalTransaction?: TransactionCreateNestedOneWithoutReversalInput
   }
 
-  export type TransactionUncheckedCreateWithoutSenderInput = {
+  export type TransactionUncheckedCreateWithoutFromUserInput = {
     id?: number
     amount: number
     type: string
-    receiverId?: number | null
+    toUserId?: number | null
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
+    reversedAt?: Date | string | null
+    reversalId?: number | null
+    originalTransaction?: TransactionUncheckedCreateNestedOneWithoutReversalInput
   }
 
-  export type TransactionCreateOrConnectWithoutSenderInput = {
+  export type TransactionCreateOrConnectWithoutFromUserInput = {
     where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutSenderInput, TransactionUncheckedCreateWithoutSenderInput>
+    create: XOR<TransactionCreateWithoutFromUserInput, TransactionUncheckedCreateWithoutFromUserInput>
   }
 
-  export type TransactionCreateManySenderInputEnvelope = {
-    data: TransactionCreateManySenderInput | TransactionCreateManySenderInput[]
+  export type TransactionCreateManyFromUserInputEnvelope = {
+    data: TransactionCreateManyFromUserInput | TransactionCreateManyFromUserInput[]
   }
 
-  export type TransactionCreateWithoutReceiverInput = {
+  export type TransactionCreateWithoutToUserInput = {
     amount: number
     type: string
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
-    sender?: UserCreateNestedOneWithoutTransactionsSentInput
+    reversedAt?: Date | string | null
+    fromUser?: UserCreateNestedOneWithoutSentTransactionsInput
+    reversal?: TransactionCreateNestedOneWithoutOriginalTransactionInput
+    originalTransaction?: TransactionCreateNestedOneWithoutReversalInput
   }
 
-  export type TransactionUncheckedCreateWithoutReceiverInput = {
+  export type TransactionUncheckedCreateWithoutToUserInput = {
     id?: number
     amount: number
     type: string
-    senderId?: number | null
+    fromUserId?: number | null
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
+    reversedAt?: Date | string | null
+    reversalId?: number | null
+    originalTransaction?: TransactionUncheckedCreateNestedOneWithoutReversalInput
   }
 
-  export type TransactionCreateOrConnectWithoutReceiverInput = {
+  export type TransactionCreateOrConnectWithoutToUserInput = {
     where: TransactionWhereUniqueInput
-    create: XOR<TransactionCreateWithoutReceiverInput, TransactionUncheckedCreateWithoutReceiverInput>
+    create: XOR<TransactionCreateWithoutToUserInput, TransactionUncheckedCreateWithoutToUserInput>
   }
 
-  export type TransactionCreateManyReceiverInputEnvelope = {
-    data: TransactionCreateManyReceiverInput | TransactionCreateManyReceiverInput[]
+  export type TransactionCreateManyToUserInputEnvelope = {
+    data: TransactionCreateManyToUserInput | TransactionCreateManyToUserInput[]
   }
 
-  export type TransactionUpsertWithWhereUniqueWithoutSenderInput = {
+  export type TransactionUpsertWithWhereUniqueWithoutFromUserInput = {
     where: TransactionWhereUniqueInput
-    update: XOR<TransactionUpdateWithoutSenderInput, TransactionUncheckedUpdateWithoutSenderInput>
-    create: XOR<TransactionCreateWithoutSenderInput, TransactionUncheckedCreateWithoutSenderInput>
+    update: XOR<TransactionUpdateWithoutFromUserInput, TransactionUncheckedUpdateWithoutFromUserInput>
+    create: XOR<TransactionCreateWithoutFromUserInput, TransactionUncheckedCreateWithoutFromUserInput>
   }
 
-  export type TransactionUpdateWithWhereUniqueWithoutSenderInput = {
+  export type TransactionUpdateWithWhereUniqueWithoutFromUserInput = {
     where: TransactionWhereUniqueInput
-    data: XOR<TransactionUpdateWithoutSenderInput, TransactionUncheckedUpdateWithoutSenderInput>
+    data: XOR<TransactionUpdateWithoutFromUserInput, TransactionUncheckedUpdateWithoutFromUserInput>
   }
 
-  export type TransactionUpdateManyWithWhereWithoutSenderInput = {
+  export type TransactionUpdateManyWithWhereWithoutFromUserInput = {
     where: TransactionScalarWhereInput
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutSenderInput>
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutFromUserInput>
   }
 
   export type TransactionScalarWhereInput = {
@@ -4293,196 +4655,375 @@ export namespace Prisma {
     id?: IntFilter<"Transaction"> | number
     amount?: FloatFilter<"Transaction"> | number
     type?: StringFilter<"Transaction"> | string
-    senderId?: IntNullableFilter<"Transaction"> | number | null
-    receiverId?: IntNullableFilter<"Transaction"> | number | null
+    fromUserId?: IntNullableFilter<"Transaction"> | number | null
+    toUserId?: IntNullableFilter<"Transaction"> | number | null
+    status?: StringFilter<"Transaction"> | string
+    description?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
-    reversed?: BoolFilter<"Transaction"> | boolean
+    reversedAt?: DateTimeNullableFilter<"Transaction"> | Date | string | null
+    reversalId?: IntNullableFilter<"Transaction"> | number | null
   }
 
-  export type TransactionUpsertWithWhereUniqueWithoutReceiverInput = {
+  export type TransactionUpsertWithWhereUniqueWithoutToUserInput = {
     where: TransactionWhereUniqueInput
-    update: XOR<TransactionUpdateWithoutReceiverInput, TransactionUncheckedUpdateWithoutReceiverInput>
-    create: XOR<TransactionCreateWithoutReceiverInput, TransactionUncheckedCreateWithoutReceiverInput>
+    update: XOR<TransactionUpdateWithoutToUserInput, TransactionUncheckedUpdateWithoutToUserInput>
+    create: XOR<TransactionCreateWithoutToUserInput, TransactionUncheckedCreateWithoutToUserInput>
   }
 
-  export type TransactionUpdateWithWhereUniqueWithoutReceiverInput = {
+  export type TransactionUpdateWithWhereUniqueWithoutToUserInput = {
     where: TransactionWhereUniqueInput
-    data: XOR<TransactionUpdateWithoutReceiverInput, TransactionUncheckedUpdateWithoutReceiverInput>
+    data: XOR<TransactionUpdateWithoutToUserInput, TransactionUncheckedUpdateWithoutToUserInput>
   }
 
-  export type TransactionUpdateManyWithWhereWithoutReceiverInput = {
+  export type TransactionUpdateManyWithWhereWithoutToUserInput = {
     where: TransactionScalarWhereInput
-    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutReceiverInput>
+    data: XOR<TransactionUpdateManyMutationInput, TransactionUncheckedUpdateManyWithoutToUserInput>
   }
 
-  export type UserCreateWithoutTransactionsSentInput = {
+  export type UserCreateWithoutSentTransactionsInput = {
     name: string
     email: string
     password: string
     balance?: number
-    transactionsReceived?: TransactionCreateNestedManyWithoutReceiverInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    receivedTransactions?: TransactionCreateNestedManyWithoutToUserInput
   }
 
-  export type UserUncheckedCreateWithoutTransactionsSentInput = {
+  export type UserUncheckedCreateWithoutSentTransactionsInput = {
     id?: number
     name: string
     email: string
     password: string
     balance?: number
-    transactionsReceived?: TransactionUncheckedCreateNestedManyWithoutReceiverInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    receivedTransactions?: TransactionUncheckedCreateNestedManyWithoutToUserInput
   }
 
-  export type UserCreateOrConnectWithoutTransactionsSentInput = {
+  export type UserCreateOrConnectWithoutSentTransactionsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTransactionsSentInput, UserUncheckedCreateWithoutTransactionsSentInput>
+    create: XOR<UserCreateWithoutSentTransactionsInput, UserUncheckedCreateWithoutSentTransactionsInput>
   }
 
-  export type UserCreateWithoutTransactionsReceivedInput = {
+  export type UserCreateWithoutReceivedTransactionsInput = {
     name: string
     email: string
     password: string
     balance?: number
-    transactionsSent?: TransactionCreateNestedManyWithoutSenderInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sentTransactions?: TransactionCreateNestedManyWithoutFromUserInput
   }
 
-  export type UserUncheckedCreateWithoutTransactionsReceivedInput = {
+  export type UserUncheckedCreateWithoutReceivedTransactionsInput = {
     id?: number
     name: string
     email: string
     password: string
     balance?: number
-    transactionsSent?: TransactionUncheckedCreateNestedManyWithoutSenderInput
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sentTransactions?: TransactionUncheckedCreateNestedManyWithoutFromUserInput
   }
 
-  export type UserCreateOrConnectWithoutTransactionsReceivedInput = {
+  export type UserCreateOrConnectWithoutReceivedTransactionsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTransactionsReceivedInput, UserUncheckedCreateWithoutTransactionsReceivedInput>
+    create: XOR<UserCreateWithoutReceivedTransactionsInput, UserUncheckedCreateWithoutReceivedTransactionsInput>
   }
 
-  export type UserUpsertWithoutTransactionsSentInput = {
-    update: XOR<UserUpdateWithoutTransactionsSentInput, UserUncheckedUpdateWithoutTransactionsSentInput>
-    create: XOR<UserCreateWithoutTransactionsSentInput, UserUncheckedCreateWithoutTransactionsSentInput>
-    where?: UserWhereInput
+  export type TransactionCreateWithoutOriginalTransactionInput = {
+    amount: number
+    type: string
+    status?: string
+    description?: string | null
+    createdAt?: Date | string
+    reversedAt?: Date | string | null
+    fromUser?: UserCreateNestedOneWithoutSentTransactionsInput
+    toUser?: UserCreateNestedOneWithoutReceivedTransactionsInput
+    reversal?: TransactionCreateNestedOneWithoutOriginalTransactionInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutTransactionsSentInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTransactionsSentInput, UserUncheckedUpdateWithoutTransactionsSentInput>
-  }
-
-  export type UserUpdateWithoutTransactionsSentInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    transactionsReceived?: TransactionUpdateManyWithoutReceiverNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutTransactionsSentInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    transactionsReceived?: TransactionUncheckedUpdateManyWithoutReceiverNestedInput
-  }
-
-  export type UserUpsertWithoutTransactionsReceivedInput = {
-    update: XOR<UserUpdateWithoutTransactionsReceivedInput, UserUncheckedUpdateWithoutTransactionsReceivedInput>
-    create: XOR<UserCreateWithoutTransactionsReceivedInput, UserUncheckedCreateWithoutTransactionsReceivedInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutTransactionsReceivedInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTransactionsReceivedInput, UserUncheckedUpdateWithoutTransactionsReceivedInput>
-  }
-
-  export type UserUpdateWithoutTransactionsReceivedInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    transactionsSent?: TransactionUpdateManyWithoutSenderNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutTransactionsReceivedInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    balance?: FloatFieldUpdateOperationsInput | number
-    transactionsSent?: TransactionUncheckedUpdateManyWithoutSenderNestedInput
-  }
-
-  export type TransactionCreateManySenderInput = {
+  export type TransactionUncheckedCreateWithoutOriginalTransactionInput = {
     id?: number
     amount: number
     type: string
-    receiverId?: number | null
+    fromUserId?: number | null
+    toUserId?: number | null
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
+    reversedAt?: Date | string | null
+    reversalId?: number | null
   }
 
-  export type TransactionCreateManyReceiverInput = {
+  export type TransactionCreateOrConnectWithoutOriginalTransactionInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutOriginalTransactionInput, TransactionUncheckedCreateWithoutOriginalTransactionInput>
+  }
+
+  export type TransactionCreateWithoutReversalInput = {
+    amount: number
+    type: string
+    status?: string
+    description?: string | null
+    createdAt?: Date | string
+    reversedAt?: Date | string | null
+    fromUser?: UserCreateNestedOneWithoutSentTransactionsInput
+    toUser?: UserCreateNestedOneWithoutReceivedTransactionsInput
+    originalTransaction?: TransactionCreateNestedOneWithoutReversalInput
+  }
+
+  export type TransactionUncheckedCreateWithoutReversalInput = {
     id?: number
     amount: number
     type: string
-    senderId?: number | null
+    fromUserId?: number | null
+    toUserId?: number | null
+    status?: string
+    description?: string | null
     createdAt?: Date | string
-    reversed?: boolean
+    reversedAt?: Date | string | null
+    originalTransaction?: TransactionUncheckedCreateNestedOneWithoutReversalInput
   }
 
-  export type TransactionUpdateWithoutSenderInput = {
+  export type TransactionCreateOrConnectWithoutReversalInput = {
+    where: TransactionWhereUniqueInput
+    create: XOR<TransactionCreateWithoutReversalInput, TransactionUncheckedCreateWithoutReversalInput>
+  }
+
+  export type UserUpsertWithoutSentTransactionsInput = {
+    update: XOR<UserUpdateWithoutSentTransactionsInput, UserUncheckedUpdateWithoutSentTransactionsInput>
+    create: XOR<UserCreateWithoutSentTransactionsInput, UserUncheckedCreateWithoutSentTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSentTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSentTransactionsInput, UserUncheckedUpdateWithoutSentTransactionsInput>
+  }
+
+  export type UserUpdateWithoutSentTransactionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedTransactions?: TransactionUpdateManyWithoutToUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSentTransactionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedTransactions?: TransactionUncheckedUpdateManyWithoutToUserNestedInput
+  }
+
+  export type UserUpsertWithoutReceivedTransactionsInput = {
+    update: XOR<UserUpdateWithoutReceivedTransactionsInput, UserUncheckedUpdateWithoutReceivedTransactionsInput>
+    create: XOR<UserCreateWithoutReceivedTransactionsInput, UserUncheckedCreateWithoutReceivedTransactionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReceivedTransactionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReceivedTransactionsInput, UserUncheckedUpdateWithoutReceivedTransactionsInput>
+  }
+
+  export type UserUpdateWithoutReceivedTransactionsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentTransactions?: TransactionUpdateManyWithoutFromUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReceivedTransactionsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    balance?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentTransactions?: TransactionUncheckedUpdateManyWithoutFromUserNestedInput
+  }
+
+  export type TransactionUpsertWithoutOriginalTransactionInput = {
+    update: XOR<TransactionUpdateWithoutOriginalTransactionInput, TransactionUncheckedUpdateWithoutOriginalTransactionInput>
+    create: XOR<TransactionCreateWithoutOriginalTransactionInput, TransactionUncheckedCreateWithoutOriginalTransactionInput>
+    where?: TransactionWhereInput
+  }
+
+  export type TransactionUpdateToOneWithWhereWithoutOriginalTransactionInput = {
+    where?: TransactionWhereInput
+    data: XOR<TransactionUpdateWithoutOriginalTransactionInput, TransactionUncheckedUpdateWithoutOriginalTransactionInput>
+  }
+
+  export type TransactionUpdateWithoutOriginalTransactionInput = {
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
-    receiver?: UserUpdateOneWithoutTransactionsReceivedNestedInput
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fromUser?: UserUpdateOneWithoutSentTransactionsNestedInput
+    toUser?: UserUpdateOneWithoutReceivedTransactionsNestedInput
+    reversal?: TransactionUpdateOneWithoutOriginalTransactionNestedInput
   }
 
-  export type TransactionUncheckedUpdateWithoutSenderInput = {
+  export type TransactionUncheckedUpdateWithoutOriginalTransactionInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    toUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type TransactionUncheckedUpdateManyWithoutSenderInput = {
+  export type TransactionUpsertWithoutReversalInput = {
+    update: XOR<TransactionUpdateWithoutReversalInput, TransactionUncheckedUpdateWithoutReversalInput>
+    create: XOR<TransactionCreateWithoutReversalInput, TransactionUncheckedCreateWithoutReversalInput>
+    where?: TransactionWhereInput
+  }
+
+  export type TransactionUpdateToOneWithWhereWithoutReversalInput = {
+    where?: TransactionWhereInput
+    data: XOR<TransactionUpdateWithoutReversalInput, TransactionUncheckedUpdateWithoutReversalInput>
+  }
+
+  export type TransactionUpdateWithoutReversalInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fromUser?: UserUpdateOneWithoutSentTransactionsNestedInput
+    toUser?: UserUpdateOneWithoutReceivedTransactionsNestedInput
+    originalTransaction?: TransactionUpdateOneWithoutReversalNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutReversalInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    receiverId?: NullableIntFieldUpdateOperationsInput | number | null
+    fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    toUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    originalTransaction?: TransactionUncheckedUpdateOneWithoutReversalNestedInput
   }
 
-  export type TransactionUpdateWithoutReceiverInput = {
+  export type TransactionCreateManyFromUserInput = {
+    id?: number
+    amount: number
+    type: string
+    toUserId?: number | null
+    status?: string
+    description?: string | null
+    createdAt?: Date | string
+    reversedAt?: Date | string | null
+    reversalId?: number | null
+  }
+
+  export type TransactionCreateManyToUserInput = {
+    id?: number
+    amount: number
+    type: string
+    fromUserId?: number | null
+    status?: string
+    description?: string | null
+    createdAt?: Date | string
+    reversedAt?: Date | string | null
+    reversalId?: number | null
+  }
+
+  export type TransactionUpdateWithoutFromUserInput = {
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
-    sender?: UserUpdateOneWithoutTransactionsSentNestedInput
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    toUser?: UserUpdateOneWithoutReceivedTransactionsNestedInput
+    reversal?: TransactionUpdateOneWithoutOriginalTransactionNestedInput
+    originalTransaction?: TransactionUpdateOneWithoutReversalNestedInput
   }
 
-  export type TransactionUncheckedUpdateWithoutReceiverInput = {
+  export type TransactionUncheckedUpdateWithoutFromUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    toUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
+    originalTransaction?: TransactionUncheckedUpdateOneWithoutReversalNestedInput
   }
 
-  export type TransactionUncheckedUpdateManyWithoutReceiverInput = {
+  export type TransactionUncheckedUpdateManyWithoutFromUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     type?: StringFieldUpdateOperationsInput | string
-    senderId?: NullableIntFieldUpdateOperationsInput | number | null
+    toUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reversed?: BoolFieldUpdateOperationsInput | boolean
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type TransactionUpdateWithoutToUserInput = {
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fromUser?: UserUpdateOneWithoutSentTransactionsNestedInput
+    reversal?: TransactionUpdateOneWithoutOriginalTransactionNestedInput
+    originalTransaction?: TransactionUpdateOneWithoutReversalNestedInput
+  }
+
+  export type TransactionUncheckedUpdateWithoutToUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
+    originalTransaction?: TransactionUncheckedUpdateOneWithoutReversalNestedInput
+  }
+
+  export type TransactionUncheckedUpdateManyWithoutToUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    type?: StringFieldUpdateOperationsInput | string
+    fromUserId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reversedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reversalId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 

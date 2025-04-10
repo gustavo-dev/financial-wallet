@@ -119,17 +119,22 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
-  balance: 'balance'
+  balance: 'balance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   amount: 'amount',
   type: 'type',
-  senderId: 'senderId',
-  receiverId: 'receiverId',
+  fromUserId: 'fromUserId',
+  toUserId: 'toUserId',
+  status: 'status',
+  description: 'description',
   createdAt: 'createdAt',
-  reversed: 'reversed'
+  reversedAt: 'reversedAt',
+  reversalId: 'reversalId'
 };
 
 exports.Prisma.SortOrder = {
