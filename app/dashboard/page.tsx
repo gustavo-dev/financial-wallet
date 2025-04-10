@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 import styles from './page.module.css';
 
 interface User {
@@ -19,7 +20,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('auth-token');
         
         if (!token) {
           router.push('/auth/login');
@@ -34,7 +35,7 @@ export default function DashboardPage() {
 
         if (!res.ok) {
           if (res.status === 401) {
-            localStorage.removeItem('token');
+            Cookies.remove('auth-token');
             router.push('/auth/login');
             return;
           }
@@ -55,7 +56,7 @@ export default function DashboardPage() {
   }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    Cookies.remove('auth-token');
     router.push('/auth/login');
   };
 
