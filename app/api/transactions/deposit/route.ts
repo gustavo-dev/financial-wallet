@@ -1,56 +1,60 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import prisma from '@/lib/prisma';
-import { verifyAuth } from '@/lib/auth';
+import { verifyJwtToken } from '@/lib/jwt';
 
-const depositSchema = z.object({
-  amount: z.number().positive(),
-  description: z.string().optional(),
-});
-
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const userId = await verifyAuth(req);
-    if (!userId) {
-      return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: 'Não autorizado' },
+        { status: 401 }
+      );
     }
 
-    const body = await req.json();
-    const { amount, description } = depositSchema.parse(body);
+    const token = authHeader.split(' ')[1];
+    const payload = await verifyJwtToken(token);
+    const body = await request.json();
+    const { amount, description } = body;
 
-    const transaction = await prisma.$transaction(async (tx) => {
-      const transaction = await tx.transaction.create({
-        data: {
-          type: 'DEPOSIT',
-          amount,
-          description,
-          toUserId: userId,
-        },
-      });
+    if (!amount || amount <= 0) {
+      return NextResponse.json(
+        { error: 'Valor inválido para depósito' },
+        { status: 400 }
+      );
+    }
 
-      const user = await tx.user.update({
-        where: { id: userId },
-        data: {
-          balance: {
-            increment: amount
+    const user = await prisma.user.update({
+      where: { id: payload.userId },
+      data: {
+        balance: { increment: amount },
+        sentTransactions: {
+          create: {
+            type: 'DEPOSIT',
+            amount,
+            description: description || 'Depósito',
           }
-        },
-      });
-
-      return { transaction, user };
+        }
+      },
+      include: {
+        sentTransactions: {
+          orderBy: { createdAt: 'desc' },
+          take: 1
+        }
+      }
     });
 
     return NextResponse.json({
-      message: 'Depósito realizado com sucesso',
-      transaction: transaction.transaction,
-      newBalance: transaction.user.balance
-    }, { status: 201 });
+      balance: user.balance,
+      transaction: user.sentTransactions[0]
+    });
 
   } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.errors }, { status: 400 });
-    }
     console.error('Erro ao processar depósito:', error);
-    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Erro ao processar depósito' },
+      { status: 500 }
+    );
   }
-} 
+}

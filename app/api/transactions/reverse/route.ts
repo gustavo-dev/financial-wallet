@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import { verifyAuth } from '@/lib/auth';
+import { Prisma } from '@prisma/client';
 
 const reverseSchema = z.object({
   transactionId: z.number().int().positive(),
@@ -35,11 +36,6 @@ export async function POST(req: NextRequest) {
         throw new Error('Transação não encontrada');
       }
 
-      // Verificar se a transação já foi revertida
-      if (originalTransaction.status === 'REVERSED') {
-        throw new Error('Transação já foi revertida');
-      }
-
       // Verificar se o usuário tem permissão (deve ser o remetente ou destinatário)
       if (originalTransaction.fromUserId !== userId && originalTransaction.toUserId !== userId) {
         throw new Error('Sem permissão para reverter esta transação');
@@ -48,7 +44,7 @@ export async function POST(req: NextRequest) {
       // Criar transação de reversão
       const reversalTransaction = await tx.transaction.create({
         data: {
-          type: 'REVERSAL',
+          type: 'TRANSFER_IN',
           amount: originalTransaction.amount,
           description: reason || 'Reversão de transação',
           fromUserId: originalTransaction.toUserId,
@@ -56,18 +52,8 @@ export async function POST(req: NextRequest) {
         },
       });
 
-      // Atualizar status da transação original
-      await tx.transaction.update({
-        where: { id: transactionId },
-        data: {
-          status: 'REVERSED',
-          reversalId: reversalTransaction.id,
-          reversedAt: new Date(),
-        },
-      });
-
       // Se for uma transferência, reverter os saldos
-      if (originalTransaction.type === 'TRANSFER') {
+      if (originalTransaction.type === 'TRANSFER_OUT' || originalTransaction.type === 'TRANSFER_IN') {
         if (originalTransaction.fromUserId) {
           await tx.user.update({
             where: { id: originalTransaction.fromUserId },

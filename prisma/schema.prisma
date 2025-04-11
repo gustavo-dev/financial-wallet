@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/client"
 }
 
 datasource db {
@@ -12,30 +11,25 @@ datasource db {
 }
 
 model User {
-  id                Int           @id @default(autoincrement())
-  name             String
-  email            String        @unique
-  password         String
-  balance          Float         @default(0)
-  sentTransactions     Transaction[] @relation("FromUser")
-  receivedTransactions Transaction[] @relation("ToUser")
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
+  id                   Int           @id @default(autoincrement())
+  name                 String
+  email                String        @unique
+  password             String
+  balance              Float         @default(0)
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  sentTransactions     Transaction[] @relation("SentTransactions")
+  receivedTransactions Transaction[] @relation("ReceivedTransactions")
 }
 
 model Transaction {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
+  type        String    // DEPOSIT, TRANSFER_IN, TRANSFER_OUT
   amount      Float
-  type        String   // "DEPOSIT" | "TRANSFER" | "REVERSAL"
-  fromUser    User?    @relation("FromUser", fields: [fromUserId], references: [id])
-  fromUserId  Int?
-  toUser      User?    @relation("ToUser", fields: [toUserId], references: [id])
-  toUserId    Int?
-  status      String   @default("COMPLETED") // "COMPLETED" | "REVERSED"
   description String?
-  createdAt   DateTime @default(now())
-  reversedAt  DateTime?
-  reversalId  Int?     @unique
-  reversal    Transaction? @relation("TransactionReversal", fields: [reversalId], references: [id])
-  originalTransaction Transaction? @relation("TransactionReversal")
+  createdAt   DateTime  @default(now())
+  fromUser    User?     @relation("SentTransactions", fields: [fromUserId], references: [id])
+  fromUserId  Int?
+  toUser      User?     @relation("ReceivedTransactions", fields: [toUserId], references: [id])
+  toUserId    Int?
 }

@@ -1,9 +1,11 @@
 'use client';
 
+import styles from './page.module.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import styles from './page.module.css';
+import { DepositModal } from '@/components/organisms/DepositModal';
+import { TransferModal } from '@/components/organisms/TransferModal';
 
 interface User {
   id: number;
@@ -15,7 +17,8 @@ interface User {
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -47,8 +50,6 @@ export default function DashboardPage() {
       } catch (error) {
         console.error('Erro:', error);
         alert('Erro ao carregar dados do usuário');
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -60,12 +61,21 @@ export default function DashboardPage() {
     router.push('/auth/login');
   };
 
-  if (loading) {
-    return <div className={styles.container}>Carregando...</div>;
-  }
+  const handleOperationSuccess = async () => {
+    // Atualizar os dados do usuário após uma operação bem-sucedida
+    try {
+      const res = await fetch('/api/user/me');
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data);
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar dados do usuário:', error);
+    }
+  };
 
   if (!user) {
-    return <div className={styles.container}>Não autorizado</div>;
+    return <div className={styles.container}>Carregando...</div>;
   }
 
   return (
@@ -74,7 +84,7 @@ export default function DashboardPage() {
         <div className={styles.headerContent}>
           <div>
             <h1>Dashboard</h1>
-            <p>Bem-vindo, {user.name}!</p>
+            <p>Bem-vindo de volta, {user.name}!</p>
           </div>
           <button onClick={handleLogout} className={styles.logoutButton}>
             Sair
@@ -92,19 +102,32 @@ export default function DashboardPage() {
       <section className={styles.actions}>
         <h2>Operações</h2>
         <div className={styles.buttons}>
-          <button className={styles.depositButton}>
+          <button 
+            onClick={() => setIsDepositModalOpen(true)} 
+            className={styles.depositButton}
+          >
             Realizar Depósito
           </button>
-          <button className={styles.transferButton}>
+          <button 
+            onClick={() => setIsTransferModalOpen(true)} 
+            className={styles.transferButton}
+          >
             Realizar Transferência
           </button>
         </div>
       </section>
 
-      <section className={styles.history}>
-        <h2>Histórico de Transações</h2>
-        {/* TODO: Implementar lista de transações */}
-      </section>
+      <DepositModal
+        isOpen={isDepositModalOpen}
+        onClose={() => setIsDepositModalOpen(false)}
+        onSuccess={handleOperationSuccess}
+      />
+
+      <TransferModal
+        isOpen={isTransferModalOpen}
+        onClose={() => setIsTransferModalOpen(false)}
+        onSuccess={handleOperationSuccess}
+      />
     </div>
   );
 } 
